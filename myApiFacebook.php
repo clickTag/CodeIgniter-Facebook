@@ -4,8 +4,10 @@ require 'facebook-php-sdk/src/facebook.php';
 
 class myApiFacebook extends Facebook {
 
-	var $config = array(
-		'cookie' => true
+	var $myApiConfig = array(
+		'cookie' => true,
+		'language_code' => 'en_GB',
+		'debug' => false
 	);
 
 	function __construct($config = null){
@@ -13,16 +15,16 @@ class myApiFacebook extends Facebook {
 			error_log('No Facebook Config file found');
 			return;
 		}
-		$this->config = array_merge($config, $this->config);
-		parent::__construct($this->config);
+		$this->myApiConfig = array_merge($this->myApiConfig, $config);
+		parent::__construct($this->myApiConfig);
 	}
 
 	public function getNamespace(){
-		return (array_key_exists('namespace', $this->config)) ? $this->config['namespace'] : null;
+		return (array_key_exists('namespace', $this->myApiConfig)) ? $this->myApiConfig['namespace'] : null;
 	}
 
 	public function getPageId(){
-		return (array_key_exists('pageId', $this->config)) ? $this->config['pageId'] : null;
+		return (array_key_exists('pageId', $this->myApiConfig)) ? $this->myApiConfig['pageId'] : null;
 	}
 
 	public function getTabAppUrl(){
@@ -35,7 +37,10 @@ class myApiFacebook extends Facebook {
 	}
 
 	public function getCanvasUrl(){
-		return (array_key_exists('namespace', $this->config)) ? 'http://apps.facebook.com/'.$this->config['namespace'].'/' : null;
+		return (array_key_exists('namespace', $this->myApiConfig)) ? 'http://apps.facebook.com/'.$this->myApiConfig['namespace'].'/' : null;
 	}
 	
+	public function jsInclude(){
+		include 'jsInclude.php';
+	}
 }
