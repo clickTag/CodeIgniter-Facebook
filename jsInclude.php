@@ -9,11 +9,11 @@
 			xfbml      : true
 		});
 		
-		FB.Canvas.scrollTo(0,0);
-		FB.Canvas.setSize({ width: 810, height: $(document.body).offsetHeight });
-		window.setInterval(function(){
+		if (top !== self) {
+			FB.Canvas.scrollTo(0,0);
 			FB.Canvas.setSize({ width: 810, height: $(document.body).offsetHeight });
-		},500);
+			FB.Canvas.setAutoGrow();
+		}
 	};
 
 	(function(d, debug){
