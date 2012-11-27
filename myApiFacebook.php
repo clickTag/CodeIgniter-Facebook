@@ -33,30 +33,14 @@ class myApiFacebook extends Facebook {
 		$this->myApiConfig = array_merge($this->myApiConfig, $config);
 		parent::__construct($this->myApiConfig);
 
-		//If we land on the canvas redirect to the tab
+
 		$CI = get_instance();
+		//Is there a myapi redirect we need to act on
+		$redirect = $CI->session->userdata('myapi_redirect');
 
-		if($CI->input->get('redirectToTab')){
-			$url = base_url($_SERVER['REQUEST_URI']);
-
-			//Remove the canvas URL variable from the final destination url
-			$parsedUrl = parse_url($url);
-			parse_str($parsedUrl['query'], $queryArray);
-			unset($queryArray['redirectToTab']);
-			$parsedUrl['query'] = http_build_query($queryArray);
-
-			$CI->session->set_userdata('myapi_redirect', base_url($parsedUrl['path'] . '?' . $parsedUrl['query']));
-
-			$tabUrl = $this->getTabAppUrl();
-			$this->jsRedirect($tabUrl);
-		}else{
-			//Is there a myapi redirect we need to act on
-			$redirect = $CI->session->userdata('myapi_redirect');
-
-			if($redirect){
-				$CI->session->unset_userdata('myapi_redirect');
-				redirect($redirect, 'refresh');
-			}
+		if($redirect){
+			$CI->session->unset_userdata('myapi_redirect');
+			redirect($redirect, 'refresh');
 		}
 	}
 
