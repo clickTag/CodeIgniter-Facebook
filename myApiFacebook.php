@@ -68,8 +68,8 @@ class myApiFacebook extends Facebook {
 		return null;
 	}
 
-	public function getCanvasUrl(){
-		return (array_key_exists('namespace', $this->myApiConfig)) ? 'http://apps.facebook.com/'.$this->myApiConfig['namespace'].'/' : null;
+	public function getCanvasUrl($path = ''){
+		return (array_key_exists('namespace', $this->myApiConfig)) ? 'http://apps.facebook.com/'.$this->myApiConfig['namespace'].'/'.$path : null;
 	}
 	
 	public function jsInclude(){
