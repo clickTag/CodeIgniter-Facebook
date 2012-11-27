@@ -4,6 +4,8 @@ require 'facebook-php-sdk/src/facebook.php';
 
 class myApiFacebook extends Facebook {
 
+	private static $ogTags = array();
+
 	var $myApiConfig = array(
 		'cookie' => true,
 		'language_code' => 'en_GB',
@@ -15,6 +17,19 @@ class myApiFacebook extends Facebook {
 			error_log('No Facebook Config file found');
 			return;
 		}
+
+		$openGraph = array(
+			'og:type' => 'website',
+			'og:url' => base_url(),
+			'fb:app_id' => $config['appId']
+		);
+
+		if(array_key_exists('graph',$config) && is_array($config['graph'])){
+			$openGraph = array_merge($openGraph,$config['graph']);
+		}
+
+		$this->setOpenGraphTags($openGraph);
+
 		$this->myApiConfig = array_merge($this->myApiConfig, $config);
 		parent::__construct($this->myApiConfig);
 	}
@@ -42,5 +57,17 @@ class myApiFacebook extends Facebook {
 	
 	public function jsInclude(){
 		include 'jsInclude.php';
+	}
+	
+	public function setOpenGraphTags($tags){
+		self::$ogTags = array_merge(self::$ogTags,$tags);
+	}
+
+	public function openGraphMeta(){
+		$html = '';
+		foreach(self::$ogTags as $key => $value){
+			$html .= '<meta property="'.$key.'" content="'.htmlspecialchars($value).'">'."\n\t";
+		}
+		return $html;
 	}
 }
