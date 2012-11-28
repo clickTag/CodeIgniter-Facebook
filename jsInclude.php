@@ -14,6 +14,8 @@
 			FB.Canvas.setSize({ width: 810, height: $(document.body).offsetHeight });
 			FB.Canvas.setAutoGrow();
 		}
+
+		$(document.body).fireEvent('fbready');
 	};
 
 	(function(d, debug){
