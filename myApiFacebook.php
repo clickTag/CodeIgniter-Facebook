@@ -72,8 +72,14 @@ class myApiFacebook extends Facebook {
 		return (array_key_exists('namespace', $this->myApiConfig)) ? 'http://apps.facebook.com/'.$this->myApiConfig['namespace'].'/'.$path : null;
 	}
 	
-	public function jsInclude(){
-		include 'jsInclude.php';
+	public function jsInclude($raw = false){
+		if($raw){
+			include 'jsInclude.php';
+		}else{
+			echo '<script>';
+			include 'jsInclude.php';
+			echo '</script><div id="fb-root"></div>';
+		}
 	}
 	
 	public function setOpenGraphTags($tags){
