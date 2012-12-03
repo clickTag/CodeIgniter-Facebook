@@ -1,8 +1,8 @@
 window.fbAsyncInit = function() {
-	// init the FB JS SDK
+	/* init the FB JS SDK */
 	FB.init({
 		appId      : '<?= $this->getAppId() ?>',
-		channelUrl : '<?= base_url("channel.php?lang=".$this->myApiConfig['language_code']) ?>', // Channel File for x-domain communication
+		channelUrl : '<?= base_url("channel.php?lang=".$this->myApiConfig['language_code']) ?>', /* Channel File for x-domain communication */
 		status     : true,
 		cookie     : true,
 		xfbml      : true
