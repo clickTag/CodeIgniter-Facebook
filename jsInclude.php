@@ -11,7 +11,9 @@ window.fbAsyncInit = function() {
 	if (top !== self) {
 		FB.Canvas.scrollTo(0,0);
 		FB.Canvas.setSize({ width: 810, height: $(document.body).offsetHeight });
-		FB.Canvas.setAutoGrow();
+		window.setInterval(function(){
+			FB.Canvas.setSize({ width: 810, height: $(document.body).offsetHeight });
+		},500);
 	}
 
 	$(document.body).fireEvent('fbready');
