@@ -121,4 +121,11 @@ class myApiFacebook extends Facebook {
 		return $data;
 	}
 
+	public function get_signed_request() {
+		if (isset($_REQUEST['signed_request'])) {
+			return $this->parse_signed_request($_REQUEST['signed_request']);
+		}
+		return false;
+	}
+
 }
